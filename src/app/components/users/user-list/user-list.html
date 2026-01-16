@@ -1,6 +1,96 @@
-@if (users()) {
-    @for (user of users(); track user.username) {
-        <p>{{user.username}}</p>
-        <p>{{user.email}}</p>
-    }
-}
+<div class="min-h-screen bg-slate-100 flex flex-col">
+    
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-1">
+    <div class="max-w-5xl mx-auto px-4 py-8">
+
+      <!-- LOADING -->
+      @if (loading()) {
+        <div class="flex justify-center py-16">
+          <div class="flex flex-col items-center gap-3">
+            <div
+              class="h-10 w-10 animate-spin rounded-full border-4 border-sky-500 border-t-transparent"
+            ></div>
+            <p class="text-sm text-slate-600">
+              Cargando usuarios...
+            </p>
+          </div>
+        </div>
+      }
+
+      <!-- ERROR -->
+      @if (error()) {
+        <div
+          class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 flex items-start gap-3"
+        >
+          <span class="mt-0.5">⚠️</span>
+          <div>
+            <p class="font-medium">Ha ocurrido un error</p>
+            <p class="mt-1">
+              {{ error()?.message }}
+            </p>
+            <button
+              type="button"
+              class="mt-3 inline-flex items-center rounded-md border border-red-200 bg-white px-3 py-1 text-xs font-medium text-red-700 hover:bg-red-50"
+              (click)="loadUsers()"
+            >
+              Reintentar
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- LISTA DE USUARIOS -->
+      @if (!loading() && !error() && users()?.length) {
+        <section
+          class="bg-white shadow-sm rounded-xl border border-slate-200 overflow-hidden"
+        >
+          <div class="px-4 py-3 border-b border-slate-200 flex items-center justify-between">
+            <h2 class="text-sm font-semibold text-slate-700">
+              Usuarios ({{ users()?.length }})
+            </h2>
+          </div>
+
+          <ul class="divide-y divide-slate-100">
+            @for (user of users(); track user.username) {
+              <li class="px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                <div>
+                  <p class="text-sm font-medium text-slate-800">
+                    {{ user.username }}
+                  </p>
+                  <p class="text-xs text-slate-500">
+                    {{ user.email }}
+                  </p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 border border-emerald-100"
+                  >
+                    Activo
+                  </span>
+                  <button
+                    type="button"
+                    class="inline-flex items-center rounded-md border border-slate-200 px-2 py-1 text-xs text-slate-700 hover:bg-slate-50"
+                  >
+                    Editar
+                  </button>
+                </div>
+              </li>
+            }
+          </ul>
+        </section>
+      } @else {
+                <div
+          class="mt-8 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center"
+        >
+          <p class="text-sm font-medium text-slate-700">
+            No hay usuarios todavía.
+          </p>
+          <p class="mt-1 text-xs text-slate-500">
+            Añade nuevos usuarios para verlos listados aquí.
+          </p>
+        </div>
+      }
+    </div>
+  </main>
+</div>

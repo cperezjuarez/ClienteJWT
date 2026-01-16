@@ -28,6 +28,7 @@ export class UserList implements OnInit {
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.users.set(data);
+        this.loading.set(false);
       },
       error: (err) => {
         this.error.set(err);
