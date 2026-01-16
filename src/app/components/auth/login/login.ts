@@ -29,17 +29,16 @@ export class Login implements OnInit {
     this.loading.set(true);
     this.error.set(null);
 
-    const request: LoginRequest = {username: this.form.value.username, password: this.form.value.password}
-    
-    this.authService.login(request)
-      .subscribe({
-        next: () => {
-          this.router.navigate(['/users-list']);
-        },
-        error: (err) => {
-          this.error.set(err);
-          this.loading.set(false);
-        }
-      });
+    const request: LoginRequest = { username: this.form.value.username, password: this.form.value.password }
+
+    this.authService.login(request).subscribe({
+      next: () => {
+        this.router.navigate(['/users-list']);
+      },
+      error: (err) => {
+        this.error.set(err);
+        this.loading.set(false);
+      }
+    });
   }
 }

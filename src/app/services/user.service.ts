@@ -12,8 +12,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   // Obtención de usuarios
-  private getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/users`)
+  public getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl)
       .pipe(
         catchError(this.handleError)
       )
