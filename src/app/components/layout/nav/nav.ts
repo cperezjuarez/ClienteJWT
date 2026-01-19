@@ -31,4 +31,10 @@ export class Nav {
       }
     })
   }
+
+  logout(): void {
+    this.authService.logout()
+    this.updateUser();
+    window.location.reload();
+  }
 }

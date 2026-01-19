@@ -10,6 +10,11 @@
 
             <!-- USER -->
             <div class="flex items-center gap-2">
+                @if(username()) {
+                    <button class="w-20 h-8 text-xs bg-red-400 border-red-500 rounded-full hover:cursor-pointer hover:-translate-y-0.5 transition-all" (click)="logout()">
+                        Cerrar sesión
+                    </button>
+                }
                 <span class="text-sm font-semibold text-slate-800">
                     @if(username()) {
                     {{username()}}
