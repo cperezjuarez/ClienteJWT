@@ -38,6 +38,7 @@ export class Login implements OnInit {
       error: (err) => {
         this.error.set(err);
         this.loading.set(false);
+        alert('Usuario incorrecto')
       }
     });
   }
