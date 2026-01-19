@@ -1,0 +1,31 @@
+<nav class="bg-white border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4">
+        <div class="flex h-14 items-center justify-between">
+            <!-- LINKS -->
+            <div class="flex items-center gap-6 text-sm">
+                <a routerLink="/users-list" href="#" class="text-slate-600 hover:text-sky-600 transition-colors pb-0.5">
+                    Inicio
+                </a>
+            </div>
+
+            <!-- USER -->
+            <div class="flex items-center gap-2">
+                <span class="text-sm font-semibold text-slate-800">
+                    @if(username()) {
+                    {{username()}}
+                    } @else {
+                    Anonimo
+                    }
+                </span>
+                <div
+                    class="h-8 w-8 rounded-lg bg-sky-600 flex items-center justify-center text-xs font-bold text-white">
+                    @if(username()) {
+                    {{username()?.charAt(0)?.toUpperCase()}}
+                    } @else {
+                    A
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,59 +1,6 @@
-<!-- nav.component.html -->
-<nav class="bg-white border-b border-slate-200">
-  <div class="max-w-6xl mx-auto px-4">
-    <div class="flex h-14 items-center justify-between">
-      <!-- LOGO / NOMBRE -->
-      <div class="flex items-center gap-2">
-        <div class="h-8 w-8 rounded-lg bg-sky-600 flex items-center justify-center text-xs font-bold text-white">
-          U
-        </div>
-        <span class="text-sm font-semibold text-slate-800">
-          User Admin
-        </span>
-      </div>
-
-      <!-- LINKS -->
-      <div class="flex items-center gap-6 text-sm">
-        <a
-          routerLink="/"
-          routerLinkActive="text-sky-600 border-b-2 border-sky-600"
-          class="text-slate-600 hover:text-sky-600 transition-colors pb-0.5"
-        >
-          Inicio
-        </a>
-        <a
-          routerLink="/users"
-          routerLinkActive="text-sky-600 border-b-2 border-sky-600"
-          class="text-slate-600 hover:text-sky-600 transition-colors pb-0.5"
-        >
-          Usuarios
-        </a>
-        <a
-          routerLink="/settings"
-          routerLinkActive="text-sky-600 border-b-2 border-sky-600"
-          class="text-slate-600 hover:text-sky-600 transition-colors pb-0.5"
-        >
-          Ajustes
-        </a>
-      </div>
-
-      <!-- PERFIL / ACCIONES -->
-      <div class="flex items-center gap-3">
-        <span class="text-xs text-slate-500">
-          admin@demo.com
-        </span>
-        <button
-          type="button"
-          class="h-8 w-8 rounded-full bg-slate-200 flex items-center justify-center text-[11px] font-medium text-slate-700"
-        >
-          AD
-        </button>
-      </div>
-    </div>
-  </div>
-</nav>
-
-
+<header>
+  <app-nav></app-nav>
+</header>
 <main>
     <router-outlet></router-outlet>
 </main>
