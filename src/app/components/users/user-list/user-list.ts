@@ -42,7 +42,7 @@ export class UserList implements OnInit {
     });
   }
 
-  openForm() {
+  createUser() {
     const dialogRef = this.dialog.open(AddUserForm, {
       width: '400px',
     });
