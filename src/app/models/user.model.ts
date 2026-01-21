@@ -28,3 +28,7 @@ export interface LoginResponse {
   email: string;
   role: string;
 }
+
+export interface DeleteResponse {
+  message: string;
+}

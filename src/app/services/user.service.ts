@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { User } from '../models';
+import { DeleteResponse, User } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,11 @@ export class UserService {
       .pipe(
         catchError(this.handleError)
       )
+  }
+
+  // Eliminación de usuario
+  public deleteUser(id: number): Observable<DeleteResponse> {
+    return this.http.get<DeleteResponse>(`${this.apiUrl}/${id}`)
   }
 
   // Gestión de errores
