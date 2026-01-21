@@ -4,10 +4,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../../services/auth.service';
 import { RegisterRequest } from '../../../models';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-user-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './add-user-form.html',
   styleUrl: './add-user-form.css',
 })
@@ -38,6 +39,8 @@ export class AddUserForm implements OnInit {
           horizontalPosition: 'center',
           verticalPosition: 'top'
         })
+
+        this.reset()
       },
 
       error: (err) => {
@@ -49,5 +52,9 @@ export class AddUserForm implements OnInit {
         this.error.set(err)
       }
     })
+  }
+
+  reset() {
+    this.form.reset()
   }
 }
