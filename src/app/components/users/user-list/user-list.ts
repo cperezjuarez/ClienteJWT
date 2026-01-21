@@ -26,10 +26,12 @@ export class UserList implements OnInit {
     this.loadUsers();
   }
 
+  // Cargar usuarios
   loadUsers(): void {
     this.loading.set(true);
     this.error.set(null);
 
+    // Service
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.users.set(data);
@@ -42,11 +44,14 @@ export class UserList implements OnInit {
     });
   }
 
+  // Crear usuario
   createUser() {
+    // Modal
     const dialogRef = this.dialog.open(AddUserForm, {
       width: '400px',
     });
 
+    // Resultado del modal
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loading.set(true);
@@ -54,6 +59,7 @@ export class UserList implements OnInit {
 
         const request: RegisterRequest = { username: result.username, password: result.password, email: result.email }
 
+        // Service
         this.authService.register(request).subscribe({
           next: () => {
             this.snackBar.open('Usuario creado correctamente', 'OK', {
@@ -76,5 +82,24 @@ export class UserList implements OnInit {
         });
       }
     });
+  }
+
+  // Eliminar usuario
+  deleteUser(id: number) {
+    this.loading.set(true);
+    this.error.set(null);
+
+    // Service
+    this.userService.deleteUser(id).subscribe({
+      next: () => {
+        alert('Usuario eliminado')
+        this.loading.set(false);
+      },
+      
+      error: (err) => {
+        this.error.set(err);
+        this.loading.set(false);
+      }
+    })
   }
 }

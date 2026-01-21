@@ -21,7 +21,10 @@ export class UserService {
 
   // Eliminación de usuario
   public deleteUser(id: number): Observable<DeleteResponse> {
-    return this.http.get<DeleteResponse>(`${this.apiUrl}/${id}`)
+    return this.http.delete<DeleteResponse>(`${this.apiUrl}/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      )
   }
 
   // Gestión de errores
