@@ -52,9 +52,14 @@
           @for (user of users(); track user.username) {
           <li class="px-4 py-3 flex items-center justify-between hover:bg-slate-50 transition-colors">
             <div>
-              <p class="text-sm font-medium text-slate-800">
-                {{ user.username }}
-              </p>
+              <div class="flex gap-2">
+                <p class="text-sm font-medium text-slate-800">
+                  {{ user.username }}
+                </p>
+                <p class="text-xs font-medium text-slate-800 opacity-50">
+                  {{user.role}}
+                </p>
+              </div>
               <p class="text-xs text-slate-500">
                 {{ user.email }}
               </p>
