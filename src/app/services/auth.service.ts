@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, User } from '../models/user.model';
+import { CurrentUser, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, User } from '../models/user.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
@@ -9,7 +9,7 @@ export class AuthService {
   private tokenKey = 'auth_token';
   private userKey = 'current_user';
 
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
@@ -56,7 +56,7 @@ export class AuthService {
     localStorage.setItem(this.tokenKey, response.token);
 
     // Creamos el usuario
-    const user: User = {
+    const user: CurrentUser = {
       username: response.username,
       email: response.email,
       role: response.role,

@@ -6,6 +6,12 @@ export interface User {
   enabled: boolean;
 }
 
+export interface CurrentUser {
+  username: string;
+  email: string;
+  role: string;
+}
+
 export interface RegisterRequest {
   username: string;
   password: string;
