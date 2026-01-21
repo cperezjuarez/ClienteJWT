@@ -2,8 +2,8 @@
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex h-14 items-center justify-between">
             <!-- LINKS -->
-            <div class="flex items-center gap-6 text-sm">
-                <a routerLink="/users-list" href="#" class="text-slate-600 hover:text-sky-600 transition-colors pb-0.5">
+            <div class="flex items-center gap-6 text-sm hover:cursor-pointer">
+                <a routerLink="/users-list" class="text-slate-600 hover:text-sky-600 transition-colors pb-0.5">
                     Inicio
                 </a>
             </div>
@@ -11,7 +11,7 @@
             <!-- USER -->
             <div class="flex items-center gap-2">
                 @if(username()) {
-                    <button class="w-20 h-8 text-xs bg-red-400 border-red-500 rounded-full hover:cursor-pointer hover:bg-red-600 transition-all" (click)="logout()">
+                    <button class="w-20 h-8 mx-10 text-xs bg-red-400 border-red-500 rounded-full hover:cursor-pointer hover:bg-red-600 transition-all" (click)="logout()">
                         Cerrar sesión
                     </button>
                 }
