@@ -72,14 +72,16 @@
                 Inactivo
               </span>
               }
-              <button type="button" (click)="updateUser(user.id)"
-                class="inline-flex items-center rounded-md border border-slate-200 px-2 py-1 text-xs bg-blue-400 text-black hover:bg-blue-900 hover:cursor-pointer">
-                Editar
-              </button>
-              <button type="button" (click)="deleteUser(user.id)"
-                class="inline-flex items-center rounded-md border bg-red-500 border-slate-200 px-2 py-1 text-xs text-black hover:bg-red-800 hover:cursor-pointer">
-                Eliminar
-              </button>
+              @if (isAdmin()) {
+                <button type="button" (click)="updateUser(user.id)"
+                  class="inline-flex items-center rounded-md border border-slate-200 px-2 py-1 text-xs bg-blue-400 text-black hover:bg-blue-900 hover:cursor-pointer">
+                  Editar
+                </button>
+                <button type="button" (click)="deleteUser(user.id)"
+                  class="inline-flex items-center rounded-md border bg-red-500 border-slate-200 px-2 py-1 text-xs text-black hover:bg-red-800 hover:cursor-pointer">
+                  Eliminar
+                </button>
+              }
             </div>
           </li>
           }

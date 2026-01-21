@@ -28,6 +28,11 @@ export class UserList implements OnInit {
     this.loadUsers();
   }
 
+  // Comprobar si es admin
+  isAdmin(): boolean {
+    return this.authService.isAdmin()
+  }
+
   // Cargar usuarios
   loadUsers(): void {
     this.loading.set(true);
@@ -71,6 +76,7 @@ export class UserList implements OnInit {
         })
         this.error.set(err);
         this.loading.set(false);
+        console.log(err);
       }
     })
   }
