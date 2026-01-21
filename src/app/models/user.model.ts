@@ -1,18 +1,20 @@
 export interface User {
+  id: number;
   username: string;
   email: string;
   role: string;
+  enabled: boolean;
 }
 
 export interface RegisterRequest {
-    username: string;
-    password: string;
-    email: string;
+  username: string;
+  password: string;
+  email: string;
 }
 
 export interface LoginRequest {
-    username: string;
-    password: string;
+  username: string;
+  password: string;
 }
 
 export interface RegisterResponse {
