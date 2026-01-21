@@ -60,7 +60,6 @@ export class AuthService {
       username: response.username,
       email: response.email,
       role: response.role,
-      token: response.token,
     };
 
     // Guardamos los datos

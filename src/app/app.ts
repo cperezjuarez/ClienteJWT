@@ -9,15 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet, 
-    Nav,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule
-  ],
+  imports: [RouterOutlet, Nav],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
