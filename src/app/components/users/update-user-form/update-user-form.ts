@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -13,13 +13,21 @@ export class UpdateUserForm {
   form!: FormGroup;
 
   ngOnInit(): void {
+    const optionalMinLength = (min: number): ValidatorFn => {
+      return (control: AbstractControl) => {
+        const v = control.value;
+        if (v === null || v === undefined || v === '') return null;
+        return Validators.minLength(min)(control);
+      };
+    };
+
     this.form = new FormGroup({
-      username: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
+      username: new FormControl(null, [optionalMinLength(3), Validators.maxLength(50)]),
+      password: new FormControl(null, [optionalMinLength(6)]),
+      email: new FormControl(null, [Validators.email]),
       role: new FormControl('USER', [Validators.required]),
       enabled: new FormControl(true)
-    })
+    });
   }
 
   save() {

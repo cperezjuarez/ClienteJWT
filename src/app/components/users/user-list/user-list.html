@@ -60,6 +60,17 @@
               </p>
             </div>
             <div class="flex items-center gap-2">
+              @if (user.enabled) {
+              <span
+                class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700 border border-emerald-100">
+                Activo
+              </span>
+              } @else {
+              <span
+                class="inline-flex items-center rounded-full bg-orange-400 px-2 py-0.5 text-[11px] font-medium text-black border border-orange-100">
+                Inactivo
+              </span>
+              }
               <button type="button" (click)="updateUser(user.id)"
                 class="inline-flex items-center rounded-md border border-slate-200 px-2 py-1 text-xs bg-blue-400 text-black hover:bg-blue-900 hover:cursor-pointer">
                 Editar
