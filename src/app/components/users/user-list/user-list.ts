@@ -3,12 +3,13 @@ import { User } from '../../../models';
 import { UserService } from '../../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserForm } from '../add-user-form/add-user-form';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-list',
-  imports: [CommonModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
