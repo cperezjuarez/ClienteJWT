@@ -7,6 +7,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserForm } from '../add-user-form/add-user-form';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-list',
@@ -19,7 +20,7 @@ export class UserList implements OnInit {
   loading = signal(false);
   error = signal<HttpErrorResponse | null>(null);
 
-  constructor(private userService: UserService, private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private userService: UserService, private authService: AuthService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -55,10 +56,20 @@ export class UserList implements OnInit {
 
         this.authService.register(request).subscribe({
           next: () => {
+            this.snackBar.open('Usuario creado correctamente', 'OK', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            })
             this.loadUsers();
             this.loading.set(false);
           },
           error: (err) => {
+            this.snackBar.open('ERROR: Error al crear el usuario', 'OK', {
+              duration: 3000,
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
+            })
             this.error.set(err);
             this.loading.set(false);
           }

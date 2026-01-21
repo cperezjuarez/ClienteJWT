@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RegisterRequest } from '../../../models';
 import { AuthService } from '../../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class Register {
   error = signal<HttpErrorResponse | null>(null);
   form!: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -34,9 +35,19 @@ export class Register {
 
     this.authService.register(request).subscribe({
       next: () => {
-        this.router.navigate(['/users-list']);
+        this.snackBar.open('Usuario creado correctamente', 'OK',  {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        })
+        this.router.navigate(['/login']);
       },
       error: (err) => {
+        this.snackBar.open('ERROR: Error al crear el usuario', 'OK',  {
+          duration: 3000,
+          verticalPosition: 'top',
+          panelClass: ['error-snackbar']
+        })
         this.error.set(err);
         this.loading.set(false);
       }
