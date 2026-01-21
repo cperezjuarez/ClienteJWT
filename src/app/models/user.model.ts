@@ -23,6 +23,14 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface UpdateUserRequest {
+  username: string;
+  password: string;
+  email: string;
+  role: string;
+  enabled: boolean;
+}
+
 export interface RegisterResponse {
   message: string;
 }
