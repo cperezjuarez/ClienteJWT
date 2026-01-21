@@ -34,7 +34,7 @@ export class Login implements OnInit {
 
     this.authService.login(request).subscribe({
       next: () => {
-        this.router.navigate(['/users-list']);
+        this.router.navigate(['/menu']);
       },
       error: (err) => {
         this.snackBar.open('ERROR: Usuario incorrecto', 'OK',  {

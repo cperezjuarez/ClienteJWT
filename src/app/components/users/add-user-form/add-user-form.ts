@@ -1,16 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from '../../../services/auth.service';
+import { RegisterRequest } from '../../../models';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-user-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './add-user-form.html',
   styleUrl: './add-user-form.css',
 })
 export class AddUserForm implements OnInit {
-  dialogRef = inject(MatDialogRef<AddUserForm>);
+  error = signal<HttpErrorResponse | null>(null);
   form!: FormGroup;
+
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -20,13 +26,35 @@ export class AddUserForm implements OnInit {
     })
   }
 
-  save() {
-    if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
-    }
+  onSubmit(): void {
+    this.error.set(null);
+
+    const request: RegisterRequest = { username: this.form.value.username, password: this.form.value.password, email: this.form.value.email }
+
+    // Service
+    this.authService.register(request).subscribe({
+      next: () => {
+        this.snackBar.open('Usuario creado correctamente', 'OK', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        })
+
+        this.reset()
+      },
+
+      error: (err) => {
+        this.snackBar.open('ERROR: Error al crear el usuario', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+          panelClass: ['error-snackbar']
+        })
+        this.error.set(err)
+      }
+    })
   }
 
-  cancel() {
-    this.dialogRef.close();
+  reset() {
+    this.form.reset()
   }
 }
