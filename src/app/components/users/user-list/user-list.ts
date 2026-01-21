@@ -1,11 +1,12 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { User } from '../../../models';
+import { RegisterRequest, User } from '../../../models';
 import { UserService } from '../../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddUserForm } from '../add-user-form/add-user-form';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -18,7 +19,7 @@ export class UserList implements OnInit {
   loading = signal(false);
   error = signal<HttpErrorResponse | null>(null);
 
-  constructor(private userService: UserService, private dialog: MatDialog) { }
+  constructor(private userService: UserService, private authService: AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -47,7 +48,21 @@ export class UserList implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
+        this.loading.set(true);
+        this.error.set(null);
+
+        const request: RegisterRequest = { username: result.username, password: result.password, email: result.email }
+
+        this.authService.register(request).subscribe({
+          next: () => {
+            this.loadUsers();
+            this.loading.set(false);
+          },
+          error: (err) => {
+            this.error.set(err);
+            this.loading.set(false);
+          }
+        });
       }
     });
   }
