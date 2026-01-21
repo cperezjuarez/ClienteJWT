@@ -3,6 +3,8 @@ import { User } from '../../../models';
 import { UserService } from '../../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { AddUserForm } from '../add-user-form/add-user-form';
 
 @Component({
   selector: 'app-user-list',
@@ -15,7 +17,7 @@ export class UserList implements OnInit {
   loading = signal(false);
   error = signal<HttpErrorResponse | null>(null);
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -33,6 +35,18 @@ export class UserList implements OnInit {
       error: (err) => {
         this.error.set(err);
         this.loading.set(false);
+      }
+    });
+  }
+
+  openForm() {
+    const dialogRef = this.dialog.open(AddUserForm, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
       }
     });
   }

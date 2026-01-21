@@ -49,7 +49,7 @@
             <h2 class="text-sm font-semibold text-slate-700">
               Usuarios ({{ users()?.length }})
             </h2>
-            <button class="inline-flex items-center rounded-md border bg-green-500 border-slate-200 px-2 py-1 text-xs text-black hover:bg-green-800 hover:cursor-pointer">
+            <button (click)="openForm()" class="inline-flex items-center rounded-md border bg-green-500 border-slate-200 px-2 py-1 text-xs text-black hover:bg-green-800 hover:cursor-pointer">
               Añadir
             </button>
           </div>
