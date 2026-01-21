@@ -21,9 +21,9 @@ export class Register {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      username: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required]),
+      username: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+      password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
     })
   }
 
