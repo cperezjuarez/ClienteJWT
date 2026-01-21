@@ -1,5 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { RegisterRequest, User } from '../../../models';
+import { RegisterRequest, UpdateUserRequest, User } from '../../../models';
 import { UserService } from '../../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,7 @@ import { AddUserForm } from '../add-user-form/add-user-form';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UpdateUserForm } from '../update-user-form/update-user-form';
 
 @Component({
   selector: 'app-user-list',
@@ -111,5 +112,45 @@ export class UserList implements OnInit {
         this.loading.set(false);
       }
     })
+  }
+
+  // Actualizar usuario
+  updateUser(id: number) {
+    // Modal
+    const dialogRef = this.dialog.open(UpdateUserForm, {
+      width: '400px',
+    });
+
+    // Resultado del modal
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loading.set(true);
+        this.error.set(null);
+
+        const request: UpdateUserRequest = { username: result.username, password: result.password, email: result.email, role: result.role, enabled: result.enabled }
+
+        // Service
+        this.userService.updateUser(id, request).subscribe({
+          next: () => {
+            this.snackBar.open('Usuario actualizado correctamente', 'OK', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            })
+            this.loadUsers();
+            this.loading.set(false);
+          },
+          error: (err) => {
+            this.snackBar.open('ERROR: Error al actualizar el usuario', 'OK', {
+              duration: 3000,
+              verticalPosition: 'top',
+              panelClass: ['error-snackbar']
+            })
+            this.error.set(err);
+            this.loading.set(false);
+          }
+        });
+      }
+    });
   }
 }
