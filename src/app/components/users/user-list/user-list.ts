@@ -92,11 +92,21 @@ export class UserList implements OnInit {
     // Service
     this.userService.deleteUser(id).subscribe({
       next: () => {
-        alert('Usuario eliminado')
+        this.snackBar.open('Usuario eliminado correctamente', 'OK', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        })
+        this.loadUsers();
         this.loading.set(false);
       },
-      
+
       error: (err) => {
+        this.snackBar.open('ERROR: Error al eliminar el usuario', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+          panelClass: ['error-snackbar']
+        })
         this.error.set(err);
         this.loading.set(false);
       }
