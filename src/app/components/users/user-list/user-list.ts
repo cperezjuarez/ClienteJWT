@@ -10,17 +10,20 @@ import { AuthService } from '../../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdateUserForm } from '../update-user-form/update-user-form';
 import { RouterLink } from "@angular/router";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
-  imports: [CommonModule, MatDialogModule, MatButtonModule, RouterLink],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css',
 })
 export class UserList implements OnInit {
-  users = signal<User[] | null>(null);
+  users = signal<User[]>([]);
   loading = signal(false);
   error = signal<HttpErrorResponse | null>(null);
+  
+  searchText = new FormControl('');
 
   constructor(private userService: UserService, private authService: AuthService, private dialog: MatDialog, private snackBar: MatSnackBar) { }
 
@@ -118,5 +121,16 @@ export class UserList implements OnInit {
         });
       }
     });
+  }
+
+  // Búsqueda de usuarios
+  searchUsersByUsername(): User[] {
+    const value = this.searchText.value;
+    if (!value) {
+      return this.users();
+    }
+
+    const q = String(value).toLocaleLowerCase();
+    return this.users()?.filter(u => u.username.toLocaleLowerCase().includes(q))
   }
 }
