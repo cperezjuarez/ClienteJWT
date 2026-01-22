@@ -76,7 +76,6 @@ export class UserList implements OnInit {
         })
         this.error.set(err);
         this.loading.set(false);
-        console.log(err);
       }
     })
   }
