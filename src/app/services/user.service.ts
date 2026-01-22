@@ -35,6 +35,14 @@ export class UserService {
       )
   }
 
+  // Obtención de usuarios por nombre
+  public getUsersByUsername(username: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/search/${username}`)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
   // Gestión de errores
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'Error desconocido';
